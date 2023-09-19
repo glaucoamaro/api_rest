@@ -5,7 +5,7 @@ import loginRequired from '../middlewares/loginRequired';
 
 const router = new Router();
 
-// router.get('/', loginRequired, userController.index); // list users
+// router.get('/', userController.index); // list users
 // router.get('/:id', userController.show); // list user
 
 router.post('/', userController.create);
