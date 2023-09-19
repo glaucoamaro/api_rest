@@ -1,9 +1,10 @@
+import jwt from 'jsonwebtoken';
 import User from '../models/User';
 
 class TokenController {
   async create(req, res) {
     const { email = '', password = '' } = req.body;
-
+    console.log(email, password);
     if (!email || !password) {
       return res.status(401).json({
         errors: ['invalid credentials.'],
@@ -14,11 +15,22 @@ class TokenController {
 
     if (!user) {
       return res.status(401).json({
-        errors: ['invalid credentials.'],
+        errors: ['User does not exist.'],
       });
     }
 
-    return res.json('OK');
+    if (!(await user.passwordValidation(password))) {
+      return res.status(401).json({
+        errors: ['invalid password.'],
+      });
+    }
+
+    const { id } = user;
+    const token = jwt.sign({ id, email }, process.env.TOKEN_SECRET, {
+      expiresIn: process.env.TOKEN_EXPIRATION,
+    });
+
+    return res.json({ token });
   }
 }
 
