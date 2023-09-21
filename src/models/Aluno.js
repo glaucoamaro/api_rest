@@ -8,7 +8,7 @@ export default class Aluno extends Model {
         defaultValue: '',
         validate: {
           len: {
-            args: [3, 8],
+            args: [3, 16],
             msg: 'Your name needs to have between 3 and 8 characters.',
           },
         },
@@ -18,7 +18,7 @@ export default class Aluno extends Model {
         defaultValue: '',
         validate: {
           len: {
-            args: [3, 8],
+            args: [3, 16],
             msg: 'Your last name needs to have between 3 and 8 characters.',
           },
         },
@@ -26,6 +26,9 @@ export default class Aluno extends Model {
       email: {
         type: Sequelize.STRING,
         defaultValue: '',
+        unique: {
+          msg: 'email ja exist',
+        },
         validate: {
           isEmail: {
             msg: 'Invalid email.',
@@ -46,7 +49,7 @@ export default class Aluno extends Model {
         defaultValue: '',
         validate: {
           isFloat: {
-            msg: 'error',
+            msg: 'error weight',
           },
         },
       },
@@ -55,7 +58,7 @@ export default class Aluno extends Model {
         defaultValue: '',
         validate: {
           isFloat: {
-            msg: 'error',
+            msg: 'error height',
           },
         },
       },

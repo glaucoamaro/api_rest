@@ -12,10 +12,17 @@ class StudentsController {
 
   async store(req, res) {
     try {
-      const students = await Aluno.findAll();
-      return res.json(students);
+      const students = await Aluno.create(req.body);
+      const { id, name, email } = students;
+      return res.json({
+        id,
+        name,
+        email,
+      });
     } catch (err) {
-      return console.log(err);
+      return res.status(400).json({
+        errors: err.errors.map((e) => e.message),
+      });
     }
   }
 
