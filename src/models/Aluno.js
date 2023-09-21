@@ -27,7 +27,7 @@ export default class Aluno extends Model {
         type: Sequelize.STRING,
         defaultValue: '',
         unique: {
-          msg: 'email ja exist',
+          msg: 'Email ja exist',
         },
         validate: {
           isEmail: {
@@ -38,18 +38,13 @@ export default class Aluno extends Model {
       age: {
         type: Sequelize.INTEGER,
         defaultValue: '',
-        validate: {
-          isIn: {
-            msg: 'Your age needs to be an integer number.',
-          },
-        },
       },
       weight: {
         type: Sequelize.FLOAT,
         defaultValue: '',
         validate: {
           isFloat: {
-            msg: 'error weight',
+            msg: 'Error weight',
           },
         },
       },
@@ -58,7 +53,7 @@ export default class Aluno extends Model {
         defaultValue: '',
         validate: {
           isFloat: {
-            msg: 'error height',
+            msg: 'Error height',
           },
         },
       },
