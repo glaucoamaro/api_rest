@@ -1,9 +1,17 @@
 import Aluno from '../models/Aluno';
+import Image from '../models/Image';
 
 class StudentsController {
   async index(req, res) {
     try {
-      const students = await Aluno.findAll();
+      const students = await Aluno.findAll({
+        attributes: ['id', 'name', 'lastname', 'email', 'age', 'weight', 'height'],
+        order: [['id', 'DESC'], [Image, 'id', 'DESC']],
+        include: {
+          model: Image,
+          attributes: ['url', 'filename'],
+        },
+      });
       return res.json(students);
     } catch (err) {
       return console.log(err);
@@ -64,7 +72,14 @@ class StudentsController {
         });
       }
 
-      const student = await Aluno.findByPk(id);
+      const student = await Aluno.findByPk(id, {
+        attributes: ['id', 'name', 'lastname', 'email', 'age', 'weight', 'height'],
+        order: [['id', 'DESC'], [Image, 'id', 'DESC']],
+        include: {
+          model: Image,
+          attributes: ['url', 'filename'],
+        },
+      });
 
       if (!student) {
         return res.status(400).json({
