@@ -14,7 +14,9 @@ class StudentsController {
       });
       return res.json(students);
     } catch (err) {
-      return console.log(err);
+      return res.status(400).json({
+        errors: err.errors.map((e) => e.message),
+      });
     }
   }
 
